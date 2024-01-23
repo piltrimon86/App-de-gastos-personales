@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-		<link rel="stylesheet" href="./public/bundle.css" />
-		<script src="./public/bundle.js" defer></script>
-		<title>App de Gastos</title>
-	</head>
-	<body>
-		<div class="contenedor">
-			<header>
-				<div class="total-gastado">
-					<p class="total-gastado__leyenda">Este mes has gastado:</p>
-					<p class="total-gastado__cantidad" id="total-gastado">$1,184.00</p>
-				</div>
-			</header>
-			<main>
-				<div class="gastos" id="gastos">
-					<h3 class="gastos__titulo">Gastos del mes</h3>
-					<div class="gastos__mensaje">
-						<h3>- Sin gastos registrados -</h3>
-					</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="./public/bundle.css" />
+        <script src="./public/bundle.js" defer></script>
+        <title>App de Gastos Personales</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <header>
+                <div class="total-gastado">
+                    <p class="total-gastado__leyenda">Este mes has gastado:</p>
+                    <p class="total-gastado__cantidad" id="total-gastado">
+                        $1,184.00
+                    </p>
+                </div>
+            </header>
+            <main>
+                <div class="gastos" id="gastos">
+                    <h3 class="gastos__titulo">Gastos del mes</h3>
+                    <div class="gastos__mensaje">
+                        <h3>- Sin gastos registrados -</h3>
+                    </div>
 
-					<div class="gastos__lista">
-						<!-- <div class="gasto" data-id="">
+                    <div class="gastos__lista">
+                        <!-- <div class="gasto" data-id="">
 							<div class="gasto__info">
 								<div>
 									<p class="gasto__nombre">Pizza</p>
@@ -72,69 +76,82 @@
 								</button>
 							</div>
 						</div> -->
-					</div>
-				</div>
+                    </div>
+                </div>
 
-				<div class="formulario-gasto" id="formulario-gasto">
-					<h3 class="formulario-gasto__titulo">Agregar gasto</h3>
-					<form action="" id="formulario-gasto__form" class="formulario-gasto__form">
-						<div class="formulario-gasto__grupo">
-							<label for="descripcion" class="formulario-gasto__label">Descripción:</label>
-							<input
-								type="text"
-								class="formulario-gasto__input"
-								name="descripcion"
-								id="descripcion"
-								placeholder="Pizza"
-								required
-							/>
-							<p class="formulario-gasto__leyenda">
-								La descripción tiene que ser de 4 a 30 dígitos y solo puede contener numeros, letras y
-								guion bajo.
-							</p>
-						</div>
-						<div class="formulario-gasto__grupo">
-							<label for="precio" class="formulario-gasto__label">Precio:</label>
-							<input
-								type="text"
-								class="formulario-gasto__input"
-								name="precio"
-								id="precio"
-								placeholder="9.99"
-								required
-							/>
-							<p class="formulario-gasto__leyenda">El precio debe contener solo numeros.</p>
-						</div>
+                <div class="formulario-gasto" id="formulario-gasto">
+                    <h3 class="formulario-gasto__titulo">Agregar gasto</h3>
+                    <form
+                        action=""
+                        id="formulario-gasto__form"
+                        class="formulario-gasto__form">
+                        <div class="formulario-gasto__grupo">
+                            <label
+                                for="descripcion"
+                                class="formulario-gasto__label"
+                                >Descripción:</label
+                            >
+                            <input
+                                type="text"
+                                class="formulario-gasto__input"
+                                name="descripcion"
+                                id="descripcion"
+                                placeholder="Pizza"
+                                required />
+                            <p class="formulario-gasto__leyenda">
+                                La descripción tiene que ser de 4 a 30 dígitos y
+                                solo puede contener numeros, letras y guion
+                                bajo.
+                            </p>
+                        </div>
+                        <div class="formulario-gasto__grupo">
+                            <label for="precio" class="formulario-gasto__label"
+                                >Precio:</label
+                            >
+                            <input
+                                type="text"
+                                class="formulario-gasto__input"
+                                name="precio"
+                                id="precio"
+                                placeholder="9.99"
+                                required />
+                            <p class="formulario-gasto__leyenda">
+                                El precio debe contener solo numeros.
+                            </p>
+                        </div>
 
-						<button class="formulario-gasto__btn">Agregar Gasto</button>
-					</form>
-				</div>
-			</main>
-			<footer>
-				<div class="agregar-gasto">
-					<button class="agregar-gasto__btn" id="toggle-form-gasto" data-accion="form-gasto">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							fill="currentColor"
-							class="agregar-gasto__btn-icono agregar-gasto__btn-icono--abrir"
-							viewBox="0 0 16 16"
-						>
-							<path
-								d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-							/>
-						</svg>
-					</button>
-				</div>
-			</footer>
-		</div>
+                        <button class="formulario-gasto__btn">
+                            Agregar Gasto
+                        </button>
+                    </form>
+                </div>
+            </main>
+            <footer>
+                <div class="agregar-gasto">
+                    <button
+                        class="agregar-gasto__btn"
+                        id="toggle-form-gasto"
+                        data-accion="form-gasto">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="agregar-gasto__btn-icono agregar-gasto__btn-icono--abrir"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                    </button>
+                </div>
+            </footer>
+        </div>
 
-		<div class="fondo">
-			<span class="fondo__circulo"></span>
-			<span class="fondo__circulo"></span>
-			<span class="fondo__circulo"></span>
-			<span class="fondo__circulo"></span>
-		</div>
-	</body>
+        <div class="fondo">
+            <span class="fondo__circulo"></span>
+            <span class="fondo__circulo"></span>
+            <span class="fondo__circulo"></span>
+            <span class="fondo__circulo"></span>
+        </div>
+    </body>
 </html>
