@@ -1,1 +1,1 @@
-console.log('funciona')
+import './eventBtnFormExpenditure'
