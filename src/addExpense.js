@@ -1,6 +1,7 @@
 // Dependencia de rollup para crear id únicos
 import { v4 as uuidv4 } from 'uuid'
 import { closeSpendForm } from './eventBtnFormExpend'
+import uploadExpense from './uploadExpense'
 
 const form = document.querySelector('#formulario-gasto form')
 const description = form.descripcion
@@ -96,6 +97,8 @@ form.addEventListener('submit', (e) => {
 
         description.value = ''
         price.value = ''
+
+        uploadExpense()
         closeSpendForm()
     }
 })
