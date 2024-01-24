@@ -99,14 +99,20 @@ const uploadExpense = () => {
 
         //No aseguramos que no haya gastos en el DOM
         containerExpenses.innerHTML = '';
+        const currencyFormat = new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'EUR',
+        });
 
         expenses.forEach((expense) => {
+            const formattedPrice = currencyFormat.format(expense.price);
+
             containerExpenses.innerHTML += `
             <div class="gasto" data-id="${expense.id}">
 				<div class="gasto__info">
 					<div>
 						<p class="gasto__nombre">${expense.description}</p>
-						<p class="gasto__cantidad">${expense.price}</p>
+						<p class="gasto__cantidad">${formattedPrice}</p>
 					</div>
 					<p class="gasto__fecha">${expense.date}</p>
 				</div>
