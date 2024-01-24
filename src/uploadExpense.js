@@ -1,3 +1,7 @@
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
+import { es } from 'date-fns/locale'
+
 const containerExpenses = document.querySelector('#gastos .gastos__lista')
 
 const uploadExpense = () => {
@@ -26,7 +30,11 @@ const uploadExpense = () => {
 						<p class="gasto__nombre">${expense.description}</p>
 						<p class="gasto__cantidad">${formattedPrice}</p>
 					</div>
-					<p class="gasto__fecha">${expense.date}</p>
+					<p class="gasto__fecha">${format(
+                        parseISO(expense.date),
+                        "d 'de' MMMM 'de' yyyy",
+                        { locale: es }
+                    )}</p>
 				</div>
 				<div class="gasto__acciones">
 					<button class="gasto__btn" data-accion="editar-gasto">
