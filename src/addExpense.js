@@ -1,3 +1,6 @@
+// Dependencia de rollup para crear id únicos
+import { v4 as uuidv4 } from 'uuid'
+
 const form = document.querySelector('#formulario-gasto form')
 const description = form.descripcion
 const price = form.precio
@@ -62,13 +65,13 @@ price.addEventListener('keyup', (e) => {
         checkPrice()
     }
 })
-
+// EventListener para detectar cuando se agrega un gasto usando el botón correspondiente
 form.addEventListener('submit', (e) => {
     e.preventDefault()
 
     if (checkDescription() && checkPrice()) {
         const newExpenditure = {
-            id: '1',
+            id: uuidv4(),
             date: new Date(),
             description: description.value,
             price: price.value,
