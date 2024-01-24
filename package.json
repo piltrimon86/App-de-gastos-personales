@@ -14,5 +14,7 @@
 	"devDependencies": {
 		"rollup": "^2.77.2"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"uuid": "^9.0.1"
+	}
 }
