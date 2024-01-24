@@ -45,7 +45,7 @@ const checkPrice = () => {
     }
 }
 
-// EventListener para cuando el input de descripción pierde el focus
+// EventListener para cuando el input de Descripción pierde el focus
 description.addEventListener('blur', (e) => checkDescription())
 // EventListener para cuando el input tiene un error y el usuario comienza a escribir para corregirlo
 description.addEventListener('keyup', (e) => {
@@ -54,11 +54,40 @@ description.addEventListener('keyup', (e) => {
     }
 })
 
-// EventListener para cuando el input de precio pierde el focus
+// EventListener para cuando el input de Precio pierde el focus
 price.addEventListener('blur', (e) => checkPrice())
 // EventListener para cuando el input tiene un error y el usuario comienza a escribir para corregirlo
 price.addEventListener('keyup', (e) => {
     if ([...e.target.classList].includes('formulario-gasto__input--error')) {
         checkPrice()
+    }
+})
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    if (checkDescription() && checkPrice()) {
+        const newExpenditure = {
+            id: '1',
+            date: new Date(),
+            description: description.value,
+            price: price.value,
+        }
+
+        const savedExpenses = JSON.parse(
+            window.localStorage.getItem('expenses')
+        )
+        // Comprobamos si hay gastos guardados en localStorage
+        if (savedExpenses) {
+            // Creamos una lista nueva de gastos que incluya el nuevo o nuevos
+            const newEspenses = [...savedExpenses, newExpenditure]
+            window.localStorage.setItem('expenses', JSON.stringify(newEspenses))
+        } else {
+            // Agregamos el primer gasto
+            window.localStorage.setItem(
+                'expenses',
+                JSON.stringify([{ ...newExpenditure }])
+            )
+        }
     }
 })
