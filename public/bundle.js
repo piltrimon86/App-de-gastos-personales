@@ -3,9 +3,25 @@
 const button = document.getElementById('toggle-form-gasto');
 const spendForm = document.getElementById('formulario-gasto');
 
-const openSpendForm = () => {
+const openSpendForm = (mode = 'addExpense') => {
     button.classList.add('agregar-gasto__btn--active');
     spendForm.classList.add('formulario-gasto--active');
+
+    if (mode === 'editExpense') {
+        document.querySelector('.formulario-gasto__titulo').innerText =
+            'Editar Gasto';
+        document.querySelector('.formulario-gasto__btn').innerText =
+            'Editar Gasto';
+        document.getElementById('formulario-gasto').dataset.mode = 'editExpense';
+    } else {
+        document.getElementById('descripcion').value = '';
+        document.getElementById('precio').value = '';
+        document.querySelector('.formulario-gasto__titulo').innerText =
+            'Agregar Gasto';
+        document.querySelector('.formulario-gasto__btn').innerText =
+            'Agregar Gasto';
+        document.getElementById('formulario-gasto').dataset.mode = 'addExpense';
+    }
 };
 
 const closeSpendForm = () => {
@@ -3247,7 +3263,7 @@ containerExpenses.addEventListener('click', (e) => {
             document.querySelector('#formulario-gasto #precio').value = amount;
             document.querySelector('#formulario-gasto').dataset.id = id;
 
-            openSpendForm();
+            openSpendForm('editExpense');
         }
     }
 });

@@ -49,7 +49,7 @@ containerExpenses.addEventListener('click', (e) => {
             document.querySelector('#formulario-gasto #precio').value = amount
             document.querySelector('#formulario-gasto').dataset.id = id
 
-            openSpendForm('editarGasto')
+            openSpendForm('editExpense')
         }
     }
 })
