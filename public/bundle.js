@@ -2537,6 +2537,62 @@ function validateTimezone(_hours, minutes) {
   return minutes >= 0 && minutes <= 59;
 }
 
+/**
+ * @name isSameMonth
+ * @category Month Helpers
+ * @summary Are the given dates in the same month (and year)?
+ *
+ * @description
+ * Are the given dates in the same month (and year)?
+ *
+ * @param {Date|Number} dateLeft - the first date to check
+ * @param {Date|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same month (and year)
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2014, 8, 25))
+ * //=> true
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2015 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2015, 8, 25))
+ * //=> false
+ */
+function isSameMonth(dirtyDateLeft, dirtyDateRight) {
+  requiredArgs(2, arguments);
+  var dateLeft = toDate(dirtyDateLeft);
+  var dateRight = toDate(dirtyDateRight);
+  return dateLeft.getFullYear() === dateRight.getFullYear() && dateLeft.getMonth() === dateRight.getMonth();
+}
+
+/**
+ * @name isThisMonth
+ * @category Month Helpers
+ * @summary Is the given date in the same month as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same month as the current date?
+ *
+ * > ⚠️ Please note that this function is not present in the FP submodule as
+ * > it uses `Date.now()` internally hence impure and can't be safely curried.
+ *
+ * @param {Date|Number} date - the date to check
+ * @returns {Boolean} the date is in this month
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // If today is 25 September 2014, is 15 September 2014 in this month?
+ * const result = isThisMonth(new Date(2014, 8, 15))
+ * //=> true
+ */
+function isThisMonth(dirtyDate) {
+  requiredArgs(1, arguments);
+  return isSameMonth(Date.now(), dirtyDate);
+}
+
 var formatDistanceLocale = {
   lessThanXSeconds: {
     one: 'menos de un segundo',
@@ -2928,7 +2984,13 @@ const containerExpenses = document.querySelector('#gastos .gastos__lista');
 const uploadExpense = () => {
     const expenses = JSON.parse(window.localStorage.getItem('expenses'));
 
+    // Comprobamos que haya gastos
     if (expenses && expenses.length > 0) {
+        const monthlyExpenses = expenses.filter((expense) => {
+            if (isThisMonth(parseISO(expense.date))) {
+                return expense
+            }
+        });
         // Si hay gastos, desactivamos el mensaje que indica que no los hay
         document
             .querySelector('#gastos .gastos__mensaje')
@@ -2941,7 +3003,7 @@ const uploadExpense = () => {
             currency: 'EUR',
         });
 
-        expenses.forEach((expense) => {
+        monthlyExpenses.forEach((expense) => {
             const formattedPrice = currencyFormat.format(expense.price);
 
             containerExpenses.innerHTML += `

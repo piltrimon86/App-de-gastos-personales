@@ -1,13 +1,20 @@
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import { es } from 'date-fns/locale'
+import isThisMonth from 'date-fns/isThisMonth'
 
 const containerExpenses = document.querySelector('#gastos .gastos__lista')
 
 const uploadExpense = () => {
     const expenses = JSON.parse(window.localStorage.getItem('expenses'))
 
+    // Comprobamos que haya gastos
     if (expenses && expenses.length > 0) {
+        const monthlyExpenses = expenses.filter((expense) => {
+            if (isThisMonth(parseISO(expense.date))) {
+                return expense
+            }
+        })
         // Si hay gastos, desactivamos el mensaje que indica que no los hay
         document
             .querySelector('#gastos .gastos__mensaje')
@@ -20,7 +27,7 @@ const uploadExpense = () => {
             currency: 'EUR',
         })
 
-        expenses.forEach((expense) => {
+        monthlyExpenses.forEach((expense) => {
             const formattedPrice = currencyFormat.format(expense.price)
 
             containerExpenses.innerHTML += `
