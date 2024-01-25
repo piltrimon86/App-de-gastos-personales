@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { closeSpendForm } from './eventBtnFormExpend'
 import uploadExpense from './uploadExpense'
+import uploadTotalExpense from './uploadTotalExpense'
 
 const form = document.querySelector('#formulario-gasto form')
 const description = form.descripcion
@@ -100,5 +101,6 @@ form.addEventListener('submit', (e) => {
 
         uploadExpense()
         closeSpendForm()
+        uploadTotalExpense()
     }
 })

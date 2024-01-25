@@ -3068,6 +3068,33 @@ const uploadExpense = () => {
     }
 };
 
+const uploadTotalExpense = () => {
+    const containerTotalExpense = document.getElementById('total-gastado');
+    const expenses = JSON.parse(window.localStorage.getItem('expenses'));
+    let total = 0;
+
+    if (expenses) {
+        const monthlyExpenses = expenses.filter((expense) => {
+            if (isThisMonth(parseISO(expense.date))) {
+                return expense
+            }
+        });
+
+        if (monthlyExpenses) {
+            monthlyExpenses.forEach((expense) => {
+                total += parseFloat(expense.price);
+            });
+        }
+
+        // Formateamos la moneda y lo agregamos al contenedor
+        const currencyFormat = new Intl.NumberFormat('es-ES', {
+            style: 'currency',
+            currency: 'EUR',
+        });
+        containerTotalExpense.innerText = currencyFormat.format(total);
+    }
+};
+
 // Dependencia de rollup para crear id únicos
 
 const form = document.querySelector('#formulario-gasto form');
@@ -3167,8 +3194,10 @@ form.addEventListener('submit', (e) => {
 
         uploadExpense();
         closeSpendForm();
+        uploadTotalExpense();
     }
 });
 
 uploadExpense();
+uploadTotalExpense();
 //# sourceMappingURL=bundle.js.map
