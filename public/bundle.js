@@ -2979,7 +2979,7 @@ var locale = {
 };
 var es = locale;
 
-const containerExpenses = document.querySelector('#gastos .gastos__lista');
+const containerExpenses$1 = document.querySelector('#gastos .gastos__lista');
 
 const uploadExpense = () => {
     const expenses = JSON.parse(window.localStorage.getItem('expenses'));
@@ -2997,7 +2997,7 @@ const uploadExpense = () => {
             .classList.remove('gastos__mensaje--active');
 
         //No aseguramos que no haya gastos en el DOM
-        containerExpenses.innerHTML = '';
+        containerExpenses$1.innerHTML = '';
         const currencyFormat = new Intl.NumberFormat('es-ES', {
             style: 'currency',
             currency: 'EUR',
@@ -3006,7 +3006,7 @@ const uploadExpense = () => {
         monthlyExpenses.forEach((expense) => {
             const formattedPrice = currencyFormat.format(expense.price);
 
-            containerExpenses.innerHTML += `
+            containerExpenses$1.innerHTML += `
             <div class="gasto" data-id="${expense.id}">
 				<div class="gasto__info">
 					<div>
@@ -3060,7 +3060,7 @@ const uploadExpense = () => {
         });
     } else {
         //No aseguramos que no haya gastos en el DOM
-        containerExpenses.innerHTML = '';
+        containerExpenses$1.innerHTML = '';
         // Si no hay gastos, activamos el mensaje que indica que no los hay
         document
             .querySelector('#gastos .gastos__mensaje')
@@ -3195,6 +3195,28 @@ form.addEventListener('submit', (e) => {
         uploadExpense();
         closeSpendForm();
         uploadTotalExpense();
+    }
+});
+
+const containerExpenses = document.getElementById('gastos');
+containerExpenses.addEventListener('click', (e) => {
+    const expense = e.target.closest('.gasto');
+
+    // Comprobamos si estamos haciendo click en un gasto
+    if (expense) {
+        if (expense.scrollLeft > 0) {
+            expense.querySelector('.gasto__info').scrollIntoView({
+                behavior: 'smooth',
+                inline: 'start',
+                block: 'nearest',
+            });
+        } else {
+            expense.querySelector('.gasto__acciones').scrollIntoView({
+                behavior: 'smooth',
+                inline: 'start',
+                block: 'nearest',
+            });
+        }
     }
 });
 
