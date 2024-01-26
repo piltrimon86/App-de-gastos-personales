@@ -3270,7 +3270,7 @@ containerExpenses.addEventListener('click', (e) => {
         }
     }
 
-    // Comprobamos si estamos haciendo click en Editar
+    // Editar gasto
     if (e.target.closest('[data-accion="editar-gasto"]')) {
         // Obtenemos el id del gasto que queremos editar
         const id = expense.dataset.id;
@@ -3300,6 +3300,28 @@ containerExpenses.addEventListener('click', (e) => {
 
             openSpendForm('editExpense');
         }
+    }
+
+    // Borrar gasto
+    if (e.target.closest('[data-accion="eliminar-gasto"]')) {
+        // Obtenemos el id del gasto que deseamo eliminar
+        const id = e.target.closest('.gasto').dataset.id;
+
+        // Obtenemos los datos guardados
+        const savedExpenses = JSON.parse(
+            window.localStorage.getItem('expenses')
+        );
+        if (savedExpenses) {
+            const newExpenses = savedExpenses.filter((expense) => {
+                if (expense.id !== id) {
+                    return expense
+                }
+            });
+            window.localStorage.setItem('expenses', JSON.stringify(newExpenses));
+        }
+
+        uploadExpense();
+        uploadTotalExpense();
     }
 });
 
