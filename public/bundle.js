@@ -3181,6 +3181,10 @@ price.addEventListener('keyup', (e) => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Obtenemos del modo del formulario en el que estamos
+    const mode = form.closest('#formulario-gasto')?.dataset?.mode;
+
+    // Comprobamos que la descripción y el precio sean correctos
     if (checkDescription() && checkPrice()) {
         const newExpenditure = {
             id: v4(),
@@ -3192,17 +3196,25 @@ form.addEventListener('submit', (e) => {
         const savedExpenses = JSON.parse(
             window.localStorage.getItem('expenses')
         );
-        // Comprobamos si hay gastos guardados en localStorage
-        if (savedExpenses) {
-            // Creamos una lista nueva de gastos que incluya el nuevo o nuevos
-            const newEspenses = [...savedExpenses, newExpenditure];
-            window.localStorage.setItem('expenses', JSON.stringify(newEspenses));
-        } else {
-            // Agregamos el primer gasto
-            window.localStorage.setItem(
-                'expenses',
-                JSON.stringify([{ ...newExpenditure }])
-            );
+
+        if (mode === 'addExpense') {
+            // Comprobamos si hay gastos guardados en localStorage
+            if (savedExpenses) {
+                // Creamos una lista nueva de gastos que incluya el nuevo o nuevos
+                const newEspenses = [...savedExpenses, newExpenditure];
+                window.localStorage.setItem(
+                    'expenses',
+                    JSON.stringify(newEspenses)
+                );
+            } else {
+                // Agregamos el primer gasto
+                window.localStorage.setItem(
+                    'expenses',
+                    JSON.stringify([{ ...newExpenditure }])
+                );
+            }
+        } else if (mode === 'editExpense') {
+            console.log('Editando gasto');
         }
 
         description.value = '';
