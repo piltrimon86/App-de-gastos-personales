@@ -3214,7 +3214,30 @@ form.addEventListener('submit', (e) => {
                 );
             }
         } else if (mode === 'editExpense') {
-            console.log('Editando gasto');
+            // Obtenemos el ID del gasto a editar
+            const id = document.getElementById('formulario-gasto').dataset?.id;
+
+            // Obtebemos el index del elemento a editar
+            let indexEditExpense;
+            if (id && savedExpenses) {
+                savedExpenses.forEach((expense, index) => {
+                    if (expense.id === id) {
+                        indexEditExpense = index;
+                    }
+                });
+            }
+
+            // Hacemos una copia de los gastos guardados para poder editarla
+            const newExpenses = [...savedExpenses];
+
+            newExpenses[indexEditExpense] = {
+                ...savedExpenses[indexEditExpense],
+                description: description.value,
+                price: price.value,
+            };
+
+            // Remplazamos el localStorage con los nuevos gastos
+            window.localStorage.setItem('expenses', JSON.stringify(newExpenses));
         }
 
         description.value = '';
