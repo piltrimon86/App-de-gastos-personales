@@ -75,7 +75,7 @@ form.addEventListener('submit', (e) => {
     // Obtenemos del modo del formulario en el que estamos
     const mode = form.closest('#formulario-gasto')?.dataset?.mode
 
-    // Comprobamos que la descripción y el precio sean correctos
+    // Comprobamos que la descripción y el precio son correctos
     if (checkDescription() && checkPrice()) {
         const newExpenditure = {
             id: uuidv4(),
