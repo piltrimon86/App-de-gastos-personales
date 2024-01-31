@@ -51,7 +51,7 @@ const checkPrice = () => {
     }
 }
 
-// EventListener para cuando el input de Descripción pierde el focus
+// EventListener para cuando el input de Descripción pierde el foco
 description.addEventListener('blur', (e) => checkDescription())
 // EventListener para cuando el input tiene un error y el usuario comienza a escribir para corregirlo
 description.addEventListener('keyup', (e) => {
@@ -60,7 +60,7 @@ description.addEventListener('keyup', (e) => {
     }
 })
 
-// EventListener para cuando el input de Precio pierde el focus
+// EventListener para cuando el input de Precio pierde el foco
 price.addEventListener('blur', (e) => checkPrice())
 // EventListener para cuando el input tiene un error y el usuario comienza a escribir para corregirlo
 price.addEventListener('keyup', (e) => {
